@@ -1,0 +1,11 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}ContactsBundle:Person:index{% endblock %}
+
+{% block body %}
+<h1>Welcome to the Person:index page</h1>
+
+{% for person in persons %}
+    {{person.name}}{{person.surname}} <br>
+{% endfor %}
+{% endblock %}
