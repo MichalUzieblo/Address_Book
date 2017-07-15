@@ -77,13 +77,23 @@ class PhoneController extends Controller
     }
 
     /**
-     * @Route("/delete")
+     * @Route("/{phone_id}/delete")
      */
-    public function deleteAction($person_id)
+    public function deleteAction($person_id, $phone_id)
     {
-        return $this->render('AddressBookBundle:Phone:delete.html.twig', array(
-            // ...
-        ));
+        $em = $this->getDoctrine()->getManager();
+        $phone = $em->getRepository('AddressBookBundle:Phone')->find($phone_id);
+        $em ->remove($phone);
+        $em ->flush();
+        
+        return $this->redirect(
+            $this->generateUrl(
+                    'addressbook_person_show',
+                    [
+                        'id'=>$person_id
+                    ]
+                )
+            );
     }
 
 }

@@ -8,8 +8,11 @@
 {% for phone in person.phones %}
     <a href="tel:{{phone.number}}">
         {{phone.number}} - {{phone.type}}
-    </a><br>
+    </a>
+    <a href="{{path('addressbook_phone_delete', {'phone_id':phone.id, 'person_id':person.id})}}">Delete phone</a>
+        <br>
 {% endfor%}
+<a href="{{path('addressbook_phone_new', {'person_id':person.id})}}">Add phone</a>
 <hr>
 <div class="well">
     {{person.description}}
