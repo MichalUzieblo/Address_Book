@@ -3,18 +3,69 @@
 {% block title %}{{person.name}} {{person.surname}}{% endblock %}
 
 {% block body %}
+    
 <h1>{{person.name}} {{person.surname}}</h1>
+
 <hr>
+
 {% for phone in person.phones %}
     <a href="tel:{{phone.number}}">
         {{phone.number}} - {{phone.type}}
     </a>
-    <a href="{{path('addressbook_phone_delete', {'phone_id':phone.id, 'person_id':person.id})}}">Delete phone</a>
-        <br>
+    <a href="{{path('addressbook_phone_delete', {'phone_id':phone.id, 'person_id':person.id})}}">
+        Delete phone
+    </a>
+    <br>
 {% endfor%}
-<a href="{{path('addressbook_phone_new', {'person_id':person.id})}}">Add phone</a>
+
+<br>
+
+<a href="{{path('addressbook_phone_new', {'person_id':person.id})}}">
+    Add phone
+</a>
+
 <hr>
+
+{% for email in person.emails %}
+    <a href="email:{{email.email}}">
+        {{email.email}} - {{email.type}}
+    </a>
+    <a href="{{path('addressbook_email_delete', {'email_id':email.id, 'person_id':person.id})}}">
+        Delete email
+    </a>
+    <br>
+{% endfor%}
+
+<br>
+<a href="{{path('addressbook_email_new', {'person_id':person.id})}}">
+    Add email
+</a>
+
+<hr>
+
+{% for address in person.addresses %}    
+    {{address.type}}:<br>        
+    {{address.streetName}} {{address.nrOfHouse}}
+    {% if address.nrOfFlat is not null %}
+        /{{address.nrOfFlat}}
+    {% endif %}
+    <br>
+    {{address.zipCode}} {{address.city}}<br> 
+    <a href="{{path('addressbook_address_delete', {'address_id':address.id, 'person_id':person.id})}}">
+        Delete address
+    </a>
+    <br><br>
+    
+{% endfor%}
+
+<a href="{{path('addressbook_address_new', {'person_id':person.id})}}">
+    Add address
+</a>
+
+<hr>
+
 <div class="well">
     {{person.description}}
 </div>
+    
 {% endblock %}

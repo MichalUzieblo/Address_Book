@@ -5,12 +5,12 @@ namespace AddressBookBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Phone
+ * Email
  *
- * @ORM\Table(name="phone")
- * @ORM\Entity(repositoryClass="AddressBookBundle\Repository\PhoneRepository")
+ * @ORM\Table(name="email")
+ * @ORM\Entity(repositoryClass="AddressBookBundle\Repository\EmailRepository")
  */
-class Phone
+class Email
 {
     /**
      * @var int
@@ -24,20 +24,20 @@ class Phone
     /**
      * @var string
      *
-     * @ORM\Column(name="number", type="string", length=32)
+     * @ORM\Column(name="email", type="string", length=48)
      */
-    private $number;
+    private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", length=16)
+     * @ORM\Column(name="type", type="string", length=48)
      */
     private $type;
     
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Person", inversedBy="phones")
+     * @ORM\ManyToOne(targetEntity="Person", inversedBy="emails")
      */
     private $person;
 
@@ -53,33 +53,33 @@ class Phone
     }
 
     /**
-     * Set number
+     * Set email
      *
-     * @param string $number
-     * @return Phone
+     * @param string $email
+     * @return Email
      */
-    public function setNumber($number)
+    public function setEmail($email)
     {
-        $this->number = $number;
+        $this->email = $email;
 
         return $this;
     }
 
     /**
-     * Get number
+     * Get email
      *
      * @return string 
      */
-    public function getNumber()
+    public function getEmail()
     {
-        return $this->number;
+        return $this->email;
     }
 
     /**
      * Set type
      *
      * @param string $type
-     * @return Phone
+     * @return Email
      */
     public function setType($type)
     {
@@ -102,7 +102,7 @@ class Phone
      * Set person
      *
      * @param \AddressBookBundle\Entity\Person $person
-     * @return Phone
+     * @return Email
      */
     public function setPerson(\AddressBookBundle\Entity\Person $person = null)
     {

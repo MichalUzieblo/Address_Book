@@ -47,15 +47,18 @@ class Person
      * @ORM\OneToMany(targetEntity="Phone", mappedBy="person")
      */
     private $phones;
-
-
+    
     /**
-     * Constructor
+     *
+     * @ORM\OneToMany(targetEntity="Email", mappedBy="person")
      */
-    public function __construct()
-    {
-        $this->phones = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    private $emails;
+    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="person")
+     */
+    private $addresses;
 
     /**
      * Get id
@@ -167,5 +170,84 @@ class Person
     public function getPhones()
     {
         return $this->phones;
+    }
+    /**
+     * Constructor
+     */
+
+
+    /**
+     * Add emails
+     *
+     * @param \AddressBookBundle\Entity\Email $emails
+     * @return Person
+     */
+    public function addEmail(\AddressBookBundle\Entity\Email $emails)
+    {
+        $this->emails[] = $emails;
+
+        return $this;
+    }
+
+    /**
+     * Remove emails
+     *
+     * @param \AddressBookBundle\Entity\Email $emails
+     */
+    public function removeEmail(\AddressBookBundle\Entity\Email $emails)
+    {
+        $this->emails->removeElement($emails);
+    }
+
+    /**
+     * Get emails
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEmails()
+    {
+        return $this->emails;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->phones = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->emails = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add addresses
+     *
+     * @param \AddressBookBundle\Entity\Address $addresses
+     * @return Person
+     */
+    public function addAddress(\AddressBookBundle\Entity\Address $addresses)
+    {
+        $this->addresses[] = $addresses;
+
+        return $this;
+    }
+
+    /**
+     * Remove addresses
+     *
+     * @param \AddressBookBundle\Entity\Address $addresses
+     */
+    public function removeAddress(\AddressBookBundle\Entity\Address $addresses)
+    {
+        $this->addresses->removeElement($addresses);
+    }
+
+    /**
+     * Get addresses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
     }
 }
