@@ -2,28 +2,30 @@
 
 {% block title %}My contacts{% endblock %}
 
-{#app.user.username#}
-
 {% block body %}
 <h1>My contacts:</h1>
-{% if persons is defined %}
-    {% for person in persons %}
-        <div class="row well">
-            <div class="col-xs-8">
-                <a href="{{path('addressbook_person_show',{'id':person.id})}}">
-                    {{person.name}} {{person.surname}}
-                </a>
-            </div>
-            <div class="col-xs-4" align="right">
-                <a href="{{path('addressbook_person_edit',{'id':person.id})}}" class="btn btn-warning">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                </a>
-                <a href="{{path('addressbook_person_delete',{'id':person.id})}}" class="btn btn-danger">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
-            </div>
 
+{% for person in persons %}
+    <div class="row well">
+        <div class="col-xs-8">
+            <a href="{{path('addressbook_person_show',{'id':person.id})}}">
+                {{person.name}} {{person.surname}}
+            </a>
         </div>
-    {% endfor %}
-{% endif %}
+        <div class="col-xs-4" align="right">
+            <a href="{{path('addressbook_person_edit',{'id':person.id})}}" class="btn btn-warning">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <a href="{{path('addressbook_person_delete',{'id':person.id})}}" class="btn btn-danger">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </a>
+        </div>
+
+    </div>
+{% else %}
+    <div class="row well">
+        No contacts yet.
+    </div>
+{% endfor %}
+
 {% endblock %}

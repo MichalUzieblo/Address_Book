@@ -86,7 +86,7 @@ class AddressController extends Controller
     public function deleteAction($person_id, $address_id)
     {
         $em = $this->getDoctrine()->getManager();
-        $email = $em->getRepository('AddressBookBundle:Address')->find($address_id);
+        $address = $em->getRepository('AddressBookBundle:Address')->find($address_id);
         $em ->remove($address);
         $em ->flush();
         

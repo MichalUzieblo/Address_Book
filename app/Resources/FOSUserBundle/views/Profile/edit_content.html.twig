@@ -6,3 +6,10 @@
         <input type="submit" class="btn-default btn" value="{{ 'profile.edit.submit'|trans }}" />
     </div>
 {{ form_end(form) }}
+
+<br>
+<form action="{{ path("addressbook_user_delete") }}" method="post">
+    <div class="form-group">
+    <input type="submit" id="_submit" name="_submit" class="btn-default btn" value="Delete User" />
+    </div>
+</form>
