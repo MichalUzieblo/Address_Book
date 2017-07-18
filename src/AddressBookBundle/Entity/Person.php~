@@ -59,6 +59,12 @@ class Person
      * @ORM\OneToMany(targetEntity="Address", mappedBy="person")
      */
     private $addresses;
+    
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="persons")
+     */
+    private $user;
 
     /**
      * Get id
@@ -211,13 +217,7 @@ class Person
     /**
      * Constructor
      */
-    public function __construct()
-    {
-        $this->phones = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->emails = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
+    
     /**
      * Add addresses
      *
@@ -250,4 +250,6 @@ class Person
     {
         return $this->addresses;
     }
+
+
 }

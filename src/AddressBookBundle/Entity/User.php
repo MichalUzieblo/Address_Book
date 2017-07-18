@@ -18,10 +18,50 @@ class User extends BaseUser
     * @ORM\GeneratedValue(strategy="AUTO")
     */
     protected $id;
+    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Person", mappedBy="user")
+     */
+    private $persons;
+
 
     public function __construct()
     {
         parent::__construct();
-    }    
+        $this->persons = new \Doctrine\Common\Collections\ArrayCollection();
+    } 
 
+    /**
+     * Add persons
+     *
+     * @param \AddressBookBundle\Entity\Person $persons
+     * @return User
+     */
+    public function addPerson(\AddressBookBundle\Entity\Person $persons)
+    {
+        $this->persons[] = $persons;
+
+        return $this;
+    }
+
+    /**
+     * Remove persons
+     *
+     * @param \AddressBookBundle\Entity\Person $persons
+     */
+    public function removePerson(\AddressBookBundle\Entity\Person $persons)
+    {
+        $this->persons->removeElement($persons);
+    }
+
+    /**
+     * Get persons
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPersons()
+    {
+        return $this->persons;
+    }
 }

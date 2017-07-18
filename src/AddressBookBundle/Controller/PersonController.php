@@ -12,7 +12,8 @@ use AddressBookBundle\Entity\Person;
 
 class PersonController extends Controller
 {
-    private function getForm ($person, $actionUrl=false) {
+    private function getForm ($person, $actionUrl=false)
+    {
         if ($actionUrl==FALSE) {
             $actionUrl = $this->generateUrl('addressbook_person_create');
         }
@@ -31,11 +32,14 @@ class PersonController extends Controller
      */
     public function indexAction()
     {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $user_id = $user->getId();
+        
         $persons = $this->
                 getDoctrine()->
                 getManager()->
                 getRepository('AddressBookBundle:Person')->
-                findAll();
+                findByUser($user_id);
         return $this->render('AddressBookBundle:Person:index.html.twig', array(
             'persons' => $persons
         ));
@@ -57,10 +61,13 @@ class PersonController extends Controller
      */
     public function createAction(Request $req)
     {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        
         $p = new Person();
         $form = $this->getForm($p);
         $form->handleRequest($req);
         if ($form->isValid()) {
+            $p ->setUser($user);
             $em = $this->getDoctrine()->getManager();
             $em ->persist($p);
             $em ->flush();

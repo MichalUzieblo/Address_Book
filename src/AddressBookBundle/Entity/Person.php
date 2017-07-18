@@ -59,6 +59,12 @@ class Person
      * @ORM\OneToMany(targetEntity="Address", mappedBy="person")
      */
     private $addresses;
+    
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="persons")
+     */
+    private $user;
 
     /**
      * Get id
@@ -211,13 +217,7 @@ class Person
     /**
      * Constructor
      */
-    public function __construct()
-    {
-        $this->phones = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->emails = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
+    
     /**
      * Add addresses
      *
@@ -249,5 +249,39 @@ class Person
     public function getAddresses()
     {
         return $this->addresses;
+    }
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->phones = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->emails = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AddressBookBundle\Entity\User $user
+     * @return Person
+     */
+    public function setUser(\AddressBookBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AddressBookBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
