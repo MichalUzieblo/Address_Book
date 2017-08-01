@@ -1,0 +1,12 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}New group of persons{% endblock %}
+
+{% block body %}
+    {{form(form)}}
+    
+    <a href="{{path('addressbook_rank_new', {'person_id':person_id})}}" class="btn btn-default">
+        New group
+    </a>
+{% endblock %}
+

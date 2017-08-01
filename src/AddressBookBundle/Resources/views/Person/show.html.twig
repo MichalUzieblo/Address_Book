@@ -8,6 +8,24 @@
 
 <hr>
 
+{% for rank in person.ranks %}
+   
+    {{rank.name}}
+ 
+    <a href="{{path('addressbook_rank_delete', {'rank_id':rank.id, 'person_id':person.id})}}">
+        Delete group
+    </a>
+    <br>
+{% endfor%}
+
+<br>
+
+<a href="{{path('addressbook_rank_select', {'person_id':person.id})}}">
+    Select group
+</a>
+
+<hr>
+
 {% for phone in person.phones %}
     <a href="tel:{{phone.number}}">
         {{phone.number}} - {{phone.type}}

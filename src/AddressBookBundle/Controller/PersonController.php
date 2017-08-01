@@ -38,8 +38,8 @@ class PersonController extends Controller
         $persons = $this->
                 getDoctrine()->
                 getManager()->
-                getRepository('AddressBookBundle:Person')->
-                findByUser($user_id);
+                getRepository('AddressBookBundle:Person')->                
+                findByUserAlphabetic($user_id);
         return $this->render('AddressBookBundle:Person:index.html.twig', array(
             'persons' => $persons
         ));

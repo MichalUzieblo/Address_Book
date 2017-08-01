@@ -12,4 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class RankRepository extends EntityRepository
 {
+    //TO query to take only groups of active user
+//    public function findByUserAlphabetic($user_id){
+//        $persons = $this->getEntityManager()->createQuery(
+//            'SELECT p FROM AddressBookBundle:Person p WHERE p.user = :user_id ORDER BY p.name ASC'
+//        )
+//        ->setParameter("user_id", $user_id)
+//        ->getResult();
+//        return $persons;
+//    }
 }
