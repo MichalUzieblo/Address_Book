@@ -25,7 +25,6 @@ class User extends BaseUser
      */
     private $persons;
 
-
     public function __construct()
     {
         parent::__construct();
@@ -63,5 +62,38 @@ class User extends BaseUser
     public function getPersons()
     {
         return $this->persons;
+    }
+
+    /**
+     * Add ranks
+     *
+     * @param \AddressBookBundle\Entity\Rank $ranks
+     * @return User
+     */
+    public function addRank(\AddressBookBundle\Entity\Rank $ranks)
+    {
+        $this->ranks[] = $ranks;
+
+        return $this;
+    }
+
+    /**
+     * Remove ranks
+     *
+     * @param \AddressBookBundle\Entity\Rank $ranks
+     */
+    public function removeRank(\AddressBookBundle\Entity\Rank $ranks)
+    {
+        $this->ranks->removeElement($ranks);
+    }
+
+    /**
+     * Get ranks
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRanks()
+    {
+        return $this->ranks;
     }
 }

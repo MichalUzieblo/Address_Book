@@ -65,6 +65,12 @@ class Person
      * @ORM\ManyToOne(targetEntity="User", inversedBy="persons")
      */
     private $user;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Rank", inversedBy="persons")
+     * @ORM\JoinTable(name="rank")
+     */
+    private $ranks;
 
     /**
      * Get id
@@ -252,15 +258,7 @@ class Person
     }
 
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->phones = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->emails = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+
 
     /**
      * Set user

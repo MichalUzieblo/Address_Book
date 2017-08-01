@@ -65,6 +65,12 @@ class Person
      * @ORM\ManyToOne(targetEntity="User", inversedBy="persons")
      */
     private $user;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Rank", inversedBy="persons")
+     * @ORM\JoinTable(name="users_ranks")
+     */
+    private $ranks;
 
     /**
      * Get id
@@ -177,10 +183,6 @@ class Person
     {
         return $this->phones;
     }
-    /**
-     * Constructor
-     */
-
 
     /**
      * Add emails
@@ -250,18 +252,7 @@ class Person
     {
         return $this->addresses;
     }
-
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->phones = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->emails = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
+    
     /**
      * Set user
      *
@@ -283,5 +274,48 @@ class Person
     public function getUser()
     {
         return $this->user;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->phones = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->emails = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ranks = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add ranks
+     *
+     * @param \AddressBookBundle\Entity\Rank $ranks
+     * @return Person
+     */
+    public function addRank(\AddressBookBundle\Entity\Rank $ranks)
+    {
+        $this->ranks[] = $ranks;
+
+        return $this;
+    }
+
+    /**
+     * Remove ranks
+     *
+     * @param \AddressBookBundle\Entity\Rank $ranks
+     */
+    public function removeRank(\AddressBookBundle\Entity\Rank $ranks)
+    {
+        $this->ranks->removeElement($ranks);
+    }
+
+    /**
+     * Get ranks
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRanks()
+    {
+        return $this->ranks;
     }
 }
