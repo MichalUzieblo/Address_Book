@@ -73,6 +73,28 @@ class PersonController extends Controller
         
     }
     /**
+     * @Route("/index/search")
+     * @Method("POST")
+     */
+    public function indexSearchAction(Request $req)
+    {
+        $search = $req->request->get('search');
+        
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $user_id = $user->getId();
+        
+        $repository = $this->getDoctrine()->getRepository('AddressBookBundle:Person');
+        $persons = $repository->findBySearchSentence($search, $user_id);
+
+        $em = $this->getDoctrine()->getManager();
+        $ranks = $em->getRepository('AddressBookBundle:Rank')->findByUserId($user_id);
+        
+        return $this->render('AddressBookBundle:Person:index.html.twig', array(
+            'persons' => $persons,
+            'ranks' => $ranks
+        ));
+    }
+    /**
      * @Route("/new")
      */
     public function newAction()

@@ -20,4 +20,13 @@ class PersonRepository extends EntityRepository
         ->getResult();
         return $persons;
     }
+    
+    public function findBySearchSentence($search, $user_id) {
+        $persons = $this->getEntityManager()->createQuery(
+        'SELECT p FROM AddressBookBundle:Person p WHERE (p.name LIKE :sentence OR p.surname LIKE :sentence) AND p.user = :user_id')
+        ->setParameter("sentence", '%' . $search . '%')
+        ->setParameter("user_id", $user_id)
+        ->getResult();
+        return $persons;
+    }
 }
