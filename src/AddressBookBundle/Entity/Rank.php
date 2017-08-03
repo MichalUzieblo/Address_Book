@@ -24,14 +24,30 @@ class Rank
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=48, unique=true)
+     * @ORM\Column(name="name", type="string", length=48)
      */
     private $name;
+    
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="userId", type="integer")
+     */
+    private $userId;
     
     /**
      * @ORM\ManyToMany(targetEntity="Person", mappedBy="ranks")
      */
     private $persons;
+
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->persons = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -67,43 +83,26 @@ class Rank
     }
 
     /**
-     * Add users
+     * Set userId
      *
-     * @param \AddressBookBundle\Entity\User $users
+     * @param integer $userId
      * @return Rank
      */
-    public function addUser(\AddressBookBundle\Entity\User $users)
+    public function setUserId($userId)
     {
-        $this->users[] = $users;
+        $this->userId = $userId;
 
         return $this;
     }
 
     /**
-     * Remove users
+     * Get userId
      *
-     * @param \AddressBookBundle\Entity\User $users
+     * @return integer 
      */
-    public function removeUser(\AddressBookBundle\Entity\User $users)
+    public function getUserId()
     {
-        $this->users->removeElement($users);
-    }
-
-    /**
-     * Get users
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getUsers()
-    {
-        return $this->users;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->persons = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->userId;
     }
 
     /**

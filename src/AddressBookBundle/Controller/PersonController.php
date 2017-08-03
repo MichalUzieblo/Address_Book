@@ -35,14 +35,42 @@ class PersonController extends Controller
         $user = $this->container->get('security.context')->getToken()->getUser();
         $user_id = $user->getId();
         
-        $persons = $this->
-                getDoctrine()->
-                getManager()->
-                getRepository('AddressBookBundle:Person')->                
-                findByUserAlphabetic($user_id);
+        $em = $this->getDoctrine()->getManager();
+        
+        $ranks = $em->getRepository('AddressBookBundle:Rank')->findByUserId($user_id);        
+        $persons = $em-> getRepository('AddressBookBundle:Person')
+                -> findByUserAlphabetic($user_id);
+        
         return $this->render('AddressBookBundle:Person:index.html.twig', array(
-            'persons' => $persons
+            'persons' => $persons,
+            'ranks' => $ranks
         ));
+    }
+    /**
+     * @Route("/index/rank/{rank_id}")
+     * @Method("GET")
+     */
+    public function indexRankAction($rank_id)
+    {
+        if ($rank_id == 'all') {
+            return $this->redirect($this->generateUrl('addressbook_person_index'));
+        } else {
+            $user = $this->container->get('security.context')->getToken()->getUser();
+            $user_id = $user->getId();
+
+            $em = $this->getDoctrine()->getManager();
+
+            $ranks = $em->getRepository('AddressBookBundle:Rank')->findByUserId($user_id);
+
+            $rank = $em->getRepository('AddressBookBundle:Rank')->find($rank_id);
+            $persons = $rank->getPersons();
+
+            return $this->render('AddressBookBundle:Person:index.html.twig', array(
+                'persons' => $persons,
+                'ranks' => $ranks
+            ));
+        }
+        
     }
     /**
      * @Route("/new")
@@ -97,7 +125,7 @@ class PersonController extends Controller
                 find($id);
         
         if (!$person) {
-            throw $this->createNotFoundException ('Taka osoba nie istnieje');
+            throw $this->createNotFoundException ('Person doesn\'t exist');
         }
         
         $form = $this->getForm($person, $this->generateUrl('addressbook_person_edit', ['id' => $id]));
@@ -148,7 +176,7 @@ class PersonController extends Controller
                 find($id);
         
         if (!$person) {
-            throw $this->createNotFoundException ('Taka osoba nie istnieje');
+            throw $this->createNotFoundException ('Person doesn\'t exist');
         }
             
         return $this->render('AddressBookBundle:Person:show.html.twig', array(

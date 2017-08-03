@@ -12,16 +12,22 @@
    
     {{rank.name}}
  
-    <a href="{{path('addressbook_rank_delete', {'rank_id':rank.id, 'person_id':person.id})}}">
-        Delete group
+    <a href="{{path('addressbook_rank_remove', {'rank_id':rank.id, 'person_id':person.id})}}">
+        Remove from this group
     </a>
     <br>
 {% endfor%}
 
 <br>
-
+{#{% if is error %}
+    Osoba już należy do tej grupy
+{% endif %}#}
 <a href="{{path('addressbook_rank_select', {'person_id':person.id})}}">
     Select group
+</a>
+<br>
+<a href="{{path('addressbook_rank_new', {'person_id':person.id})}}">
+    Add new group
 </a>
 
 <hr>

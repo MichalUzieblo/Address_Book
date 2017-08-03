@@ -1,0 +1,29 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}My groups{% endblock %}
+
+{% block body %}
+<h1>My groups:</h1>
+
+{% for rank in ranks %}
+    <div class="row well">
+        <div class="col-xs-8">            
+            {{rank.name}}            
+        </div>
+        <div class="col-xs-4" align="right">
+            <a href="{{path('addressbook_rank_edit',{'rank_id':rank.id})}}" class="btn btn-warning">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <a href="{{path('addressbook_rank_delete',{'rank_id':rank.id})}}" class="btn btn-danger">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </a>
+        </div>
+
+    </div>
+{% else %}
+    <div class="row well">
+        No groups yet.
+    </div>
+{% endfor %}
+
+{% endblock %}

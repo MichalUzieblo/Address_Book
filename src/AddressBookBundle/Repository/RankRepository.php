@@ -3,6 +3,8 @@
 namespace AddressBookBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+//use Doctrine\DBAL\Connection#createQueryBuilder
+
 
 /**
  * RankRepository
@@ -12,13 +14,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class RankRepository extends EntityRepository
 {
-    //TO query to take only groups of active user
-//    public function findByUserAlphabetic($user_id){
-//        $persons = $this->getEntityManager()->createQuery(
-//            'SELECT p FROM AddressBookBundle:Person p WHERE p.user = :user_id ORDER BY p.name ASC'
-//        )
-//        ->setParameter("user_id", $user_id)
-//        ->getResult();
-//        return $persons;
-//    }
+    public function findByUserId($user_id){
+        $ranks = $this->getEntityManager()->createQuery(
+            'SELECT r FROM AddressBookBundle:Rank r WHERE r.userId = :user_id ORDER BY r.name ASC'
+        )
+        ->setParameter("user_id", $user_id)
+        ->getResult();
+        return $ranks;
+    }
+    
+    public function findAllRanksByUserId($user_id){
+        
+        return $this->createQueryBuilder('r')
+            ->where ('r.userId = :user_id')
+            ->orderBy('r.name', 'ASC')
+            ->setParameter('user_id', $user_id);
+    }
+
 }

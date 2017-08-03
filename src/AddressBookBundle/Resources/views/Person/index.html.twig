@@ -4,7 +4,16 @@
 
 {% block body %}
 <h1>My contacts:</h1>
-<h3>Select group</h3>
+<h3>Select group:</h3>
+{% for rank in ranks %}
+    <a href="{{path('addressbook_person_indexrank',{'rank_id':rank.id})}}" class="btn btn-default">
+        {{rank.name}}
+    </a>
+{% endfor %}
+    <a href="{{path('addressbook_person_indexrank',{'rank_id':'all'})}}" class="btn btn-default">
+        All
+    </a>
+<hr>
 {% for person in persons %}
     <div class="row well">
         <div class="col-xs-8">

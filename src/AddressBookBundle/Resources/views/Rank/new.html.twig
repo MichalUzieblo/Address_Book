@@ -4,5 +4,9 @@
 
 {% block body %}
     {{form(form)}}
+    
+    <a href="{{path('addressbook_rank_select', {'person_id':person_id})}}" class="btn btn-default">
+        Select group
+    </a>
 {% endblock %}
 
