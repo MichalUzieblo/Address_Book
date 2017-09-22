@@ -1,0 +1,12 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: address_book
+    database_user: root
+    database_password: coderslab
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: email@host.com
+    mailer_password: user
+    secret: 3e6789eceb81c11723e30c533577356c11259a6b
